@@ -15,13 +15,17 @@ re="\033[1;31m"
 gr="\033[1;32m"
 cy="\033[1;36m"
 
-print (re+"╔╦╗┌─┐┬  ┌─┐╔═╗  ╔═╗┌┬┐┌┬┐┌─┐┬─┐")
-print (gr+" ║ ├┤ │  ├┤ ║ ╦  ╠═╣ ││ ││├┤ ├┬┘")
-print (re+" ╩ └─┘┴─┘└─┘╚═╝  ╩ ╩─┴┘─┴┘└─┘┴└─")
+print (re+" __    __  .______    _______ .______       __        ______   ____    ____  _______     _______.     ______   ______   .___  ___. ")
+print (gr+"|  |  |  | |   _  \  |   ____||   _  \     |  |      /  __  \  \   \  /   / |   ____|   /       |    /      | /  __  \  |   \/   | ")
+print (re+"|  |  |  | |  |_)  | |  |__   |  |_)  |    |  |     |  |  |  |  \   \/   /  |  |__     |   (----`   |  ,----'|  |  |  | |  \  /  | ")
+print (re+"|  |  |  | |   _  <  |   __|  |      /     |  |     |  |  |  |   \      /   |   __|     \   \       |  |     |  |  |  | |  |\/|  | ")
+print (re+"|  `--'  | |  |_)  | |  |____ |  |\  \----.|  `----.|  `--'  |    \    /    |  |____.----)   |    __|  `----.|  `--'  | |  |  |  | ")
+print (re+" \______/  |______/  |_______|| _| `._____||_______| \______/      \__/     |_______|_______/    (__)\______| \______/  |__|  |__| ")
+
 
 print (cy+"version : 1.01")
-print (cy+"Make sure you Subscribed Termux Professor On Youtube")
-print (cy+"www.youtube.com/c/TermuxProfessorYT")
+print (cy+"Make sure you Subscribed Uber LoverS")
+print (cy+"https://t.me/ubo520")
 
 print (re+"NOTE :")
 print ("1. Telegram only allow to add 200 members in group by one user.")
@@ -101,8 +105,9 @@ n = 0
 
 for user in users:
     n += 1
-    if n % 80 == 0:
-        sleep(60)
+    if n % 50 == 0:
+        print("Waiting for 180 - 600 Seconds...")
+        time.sleep(random.randrange(900, 1800))
     try:
         print("Adding {}".format(user['id']))
         if mode == 1:
@@ -114,8 +119,8 @@ for user in users:
         else:
             sys.exit("Invalid Mode Selected. Please Try Again.")
         client(InviteToChannelRequest(target_group_entity, [user_to_add]))
-        print("Waiting for 60-180 Seconds...")
-        time.sleep(random.randrange(0, 5))
+        print("Waiting for 180 - 600 Seconds...")
+        time.sleep(random.randrange(180, 600))
     except PeerFloodError:
         print("Getting Flood Error from telegram. Script is stopping now. Please try again after some time.")
         print("Waiting {} seconds".format(SLEEP_TIME_2))
@@ -124,7 +129,7 @@ for user in users:
         print("The user's privacy settings do not allow you to do this. Skipping.")
         print("Waiting for 5 Seconds...")
         time.sleep(random.randrange(0, 5))
-    except:
+    except Exception as e:
         traceback.print_exc()
-        print("Unexpected Error")
+        print("Unexpected Error" + e.message)
         continue

@@ -14,15 +14,22 @@ gr="\033[1;32m"
 cy="\033[1;36m"
 def banner():
 	os.system('clear')
-	print(f"""
-	{re}╔═╗{cy}┌─┐┌┬┐┬ ┬┌─┐
-	{re}╚═╗{cy}├┤  │ │ │├─┘
-	{re}╚═╝{cy}└─┘ ┴ └─┘┴
-	
-	           Version : 1.01
-	{re}Subscribe Termux Professor on Youtube
-	{cy}www.youtube.com/c/TermuxProfessorYT
-	""")
+	print(
+		re + " __    __  .______    _______ .______       __        ______   ____    ____  _______     _______.     ______   ______   .___  ___. ")
+	print(
+		gr + "|  |  |  | |   _  \  |   ____||   _  \     |  |      /  __  \  \   \  /   / |   ____|   /       |    /      | /  __  \  |   \/   | ")
+	print(
+		re + "|  |  |  | |  |_)  | |  |__   |  |_)  |    |  |     |  |  |  |  \   \/   /  |  |__     |   (----`   |  ,----'|  |  |  | |  \  /  | ")
+	print(
+		re + "|  |  |  | |   _  <  |   __|  |      /     |  |     |  |  |  |   \      /   |   __|     \   \       |  |     |  |  |  | |  |\/|  | ")
+	print(
+		re + "|  `--'  | |  |_)  | |  |____ |  |\  \----.|  `----.|  `--'  |    \    /    |  |____.----)   |    __|  `----.|  `--'  | |  |  |  | ")
+	print(
+		re + " \______/  |______/  |_______|| _| `._____||_______| \______/      \__/     |_______|_______/    (__)\______| \______/  |__|  |__| ")
+
+	print(cy + "version : 1.01")
+	print(cy + "Make sure you Subscribed Uber LoverS")
+	print(cy + "https://t.me/ubo520")
 banner()
 print(gr+"[+] Installing requierments ...")
 os.system('python3 -m pip install telethon')
