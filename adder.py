@@ -10,6 +10,8 @@ import csv
 import traceback
 import time
 import random
+from telethon.errors.rpcerrorlist import PeerFloodError, UserPrivacyRestrictedError,UserNotMutualContactError,UserKickedError,FloodWaitError,UserChannelsTooMuchError,UserBannedInChannelError
+from telethon.errors.rpcbaseerrors import UnauthorizedError
 
 re="\033[1;31m"
 gr="\033[1;32m"
@@ -102,34 +104,60 @@ target_group_entity = InputPeerChannel(target_group.id, target_group.access_hash
 mode = int(input(gr+"Enter 1 to add by username or 2 to add by ID: "+cy))
 
 n = 0
-
-for user in users:
-    n += 1
-    if n % 50 == 0:
-        print("Waiting for 180 - 600 Seconds...")
-        time.sleep(random.randrange(900, 1800))
-    try:
-        print("Adding {}".format(user['id']))
-        if mode == 1:
-            if user['username'] == "":
-                continue
-            user_to_add = client.get_input_entity(user['username'])
-        elif mode == 2:
-            user_to_add = InputPeerUser(user['id'], user['access_hash'])
-        else:
-            sys.exit("Invalid Mode Selected. Please Try Again.")
-        client(InviteToChannelRequest(target_group_entity, [user_to_add]))
-        print("Waiting for 180 - 600 Seconds...")
-        time.sleep(random.randrange(180, 600))
-    except PeerFloodError:
-        print("Getting Flood Error from telegram. Script is stopping now. Please try again after some time.")
-        print("Waiting {} seconds".format(SLEEP_TIME_2))
-        time.sleep(SLEEP_TIME_2)
-    except UserPrivacyRestrictedError:
-        print("The user's privacy settings do not allow you to do this. Skipping.")
-        print("Waiting for 5 Seconds...")
-        time.sleep(random.randrange(0, 5))
-    except Exception as e:
-        traceback.print_exc()
-        print("Unexpected Error" + e.message)
-        continue
+with open(r"members2dead.csv", "a", encoding='UTF-8') as f:
+    writer = csv.writer(f, delimiter=",", lineterminator="\n")
+    for user in users:
+        n += 1
+        if n % 50 == 0:
+            print("Waiting for 180 - 600 Seconds...")
+            time.sleep(random.randrange(900, 1800))
+        try:
+            print("Adding {}".format(user['id']))
+            if mode == 1:
+                if user['username'] == "":
+                    continue
+                user_to_add = client.get_input_entity(user['username'])
+            elif mode == 2:
+                user_to_add = InputPeerUser(user['id'], user['access_hash'])
+            else:
+                sys.exit("Invalid Mode Selected. Please Try Again.")
+            client(InviteToChannelRequest(target_group_entity, [user_to_add]))
+            print("Waiting for 180 - 600 Seconds...")
+            time.sleep(random.randrange(180, 600))
+        except PeerFloodError as e:
+            print("Waiting for 43200 seconds for PeerFloodError")
+            time.sleep(random.randrange(43100, 43200))
+            continue
+        except UserPrivacyRestrictedError:
+            print("User settings {} do not allow to be added.".format(user['username']))
+            writer.writerow([user['username']])
+            continue
+        except UserNotMutualContactError:
+            print("The user {} is not a mutual contact.".format(user['username']))
+            writer.writerow([user['username']])
+            continue
+        except UserKickedError:
+            writer.writerow([user['username']])
+            print("user already {} was kikado of the group.".format(user['username']))
+            continue
+        except FloodWaitError as e:
+            print('limit reached, use another line')
+            print('Have to sleep', e.seconds, 'seconds')
+            time.sleep(e.seconds)
+            break
+        except UnauthorizedError:
+            print("ACCOUNT WAS BANIDA!")
+            break
+        except UserChannelsTooMuchError:
+            writer.writerow([user['username']])
+            print('userbe many groups.')
+            continue
+        except ValueError:
+            writer.writerow([user['username']])
+            continue
+        except UserBannedInChannelError:
+            print('banned from sending messages')
+        except Exception as e:
+            traceback.print_exc()
+            print("Unexpected Error" + e.message)
+            continue
