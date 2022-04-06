@@ -50,7 +50,8 @@
 
 `$ python adder.py`
 
-## 
+## 錯誤WARNING: pip is configured with locations that require TLS/SSL, however the ssl module in Python is not available.
+`$ pkg install openssl`
 ---
 
 ### • 增加 30天內活躍用戶
