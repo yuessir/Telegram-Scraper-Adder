@@ -34,7 +34,7 @@
 
 `$ pkg install git`
 
-`$ git clone https://github.com/termuxprofessor/TeleGram-Scraper-Adder`
+`$ git clone https://github.com/yuessir/Telegram-Scraper-Adder.git`
 
 `$ cd Telegram-Scraper-Adder`
 
@@ -50,8 +50,7 @@
 
 `$ python adder.py`
 
-## • Watch Video Tutorial From Below
-* https://youtu.be/hNztfzMMPOc
+## 
 ---
 
 ### • 增加 30天內活躍用戶
